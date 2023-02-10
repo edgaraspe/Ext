@@ -1,13 +1,25 @@
-try {
 
+const targetNode = document.getElementById("container");
+
+const observer = new MutationObserver((mutations) => {
+    addChecking();
+});
+
+observer.observe(targetNode, { characterData: true, subtree: true, childList: true });
+addChecking()
+
+function addChecking() {
     let status = document.getElementById("currentStatus");
     let issuedQuantity = document.getElementById("issuedQuantity");
     let completedQuantity = document.getElementById("completedQuantity");
     let quantity = document.getElementById("quantity");
     let saveButton = document.getElementById("saveButton");
+    let scrap = document.getElementById("issuedQuantity");
+    scrap.disabled = true;
     saveButton.style.visibility = "hidden";
 
     check();
+
     status.addEventListener('input', function (evt) {
         check();
     });
@@ -22,6 +34,7 @@ try {
     });
 
     function check() {
+        console.log("Checking");
           if(checkStatus() && checkQuantity()){
             saveButton.style.visibility = "visible"
           }
@@ -103,7 +116,3 @@ try {
         return true;
     }
 }
-catch(e) {
-    console.log(e);
-}
-    
